@@ -1,0 +1,70 @@
+1.1 given main window    //ui
+	when added new data
+	then add new data to table at main window
+
+1.2 given main window    //ui
+	when (pressed button) decided to add new passport data
+	then open separate window for adding new data
+   			
+2.1 given passport data  //+
+    when data is correct
+    then add new data
+    and new data is added
+    
+2.2 given passport data  //+
+    when such passport data exists 
+    then report* about duplicated data
+    
+2.3 given passport data  //+
+    when data is not correct
+    then report* about incorrect data
+    
+2.4 given passport data  //+
+	when Surname, Name & Patronym (nullable) starts with main 
+		letter and don't contain non-letter symbols
+	and birth date is earlier than tomorrow
+	and birthplace doesn't contain non-letter symbols
+	and date of giving the document is between today & birth date
+	and name of giver & department do not contain non-letter symbols 
+	then data is correct
+	else is not
+	
+2.5 given passport data  //+
+	when exists passport with same serial number
+	then data is duplicated
+	else is not
+	
+3.1 given multiple passport data //+
+    when all data is correct
+    then add all new data 
+    
+3.2 given multiple passport data //+
+    when data is incorrect for one or more data groups 
+    then add all correct & report* all incorrect ("unable to add following records:...") 
+    
+3.3 given multiple passport data //dao
+	when represented in text file (*.csv)
+	and file is valid
+	then import new data 
+	 	    
+3.4 given multiple passport data //dao
+	when represented in text file (*.csv)
+	and file is not valid
+	then report* about fail ("fail to extract data from file") 
+	
+4.1 given data represented in table on main window  //dao & ui
+	when exporting data in text file
+	then create new .csv file	
+	
+5.1 given text file in .csv format //dao
+	when file consists of records like
+	"Xxx,Yyy,Zzz(nullable),dd.mm.yyyy,varchar(100),SS,NNNNNN,dd.mm.yyyy,varchar(100),varchar(100)"
+	then file is valid
+	else is not
+	
+6.1 given list of objects to persist	//ui
+	when some of them fail
+	then show a report on it in additional window  	
+	
+* - report is being logged and shown in extra window 
+		
