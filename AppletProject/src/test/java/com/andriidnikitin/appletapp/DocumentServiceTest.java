@@ -13,6 +13,7 @@ import com.andriidnikitin.appletapp.bl.DocumentServiceImpl;
 import com.andriidnikitin.appletapp.commons.AppletProjectUnableToAddException;
 
 import static  com.andriidnikitin.appletapp.commons.TestUtil.*;
+import static com.andriidnikitin.appletapp.bl.DocumentValidator.*;
 
 public class DocumentServiceTest {
 
@@ -48,7 +49,7 @@ public class DocumentServiceTest {
 		List<Document> invalidObjects = generateInvalidDataset();
 		
 		try {													//then
-			assertTrue(service.documentIsValid(sampleValidDoc));
+			assertTrue(validateDoc(sampleValidDoc));
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
@@ -58,7 +59,7 @@ public class DocumentServiceTest {
 			for (Document doc: invalidObjects){	
 				service.printDocument(System.out, doc);
 					assertFalse(
-							service.documentIsValid(doc));			
+							validateDoc(doc));			
 			}
 		}  catch (Exception e) {
 			e.printStackTrace();

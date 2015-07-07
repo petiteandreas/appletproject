@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.andriidnikitin.appletapp.commons.AppletProjectElementNotFoundException;
 import com.andriidnikitin.appletapp.commons.AppletProjectException;
-import com.andriidnikitin.appletapp.commons.AppletProjectInvalidDocException;
 import com.andriidnikitin.appletapp.commons.AppletProjectPersistenceException;
 import com.andriidnikitin.appletapp.commons.AppletProjectUnableToAddException;
 import com.andriidnikitin.appletapp.dao.FileManager;
@@ -30,7 +29,7 @@ public class DocumentServiceImpl implements DocumentService {
 			if (this.containsDoc(doc)){
 				throw new AppletProjectUnableToAddException(doc + "already exists");
 			}
-			if (!documentIsValid(doc)){
+			if (!validateDoc(doc)){
 				return false;
 			}
 			manager.persistDocument(doc);
@@ -40,16 +39,6 @@ public class DocumentServiceImpl implements DocumentService {
 		
 		return true;
 		
-	}
-
-	@Override
-	public boolean documentIsValid(Document doc)
-			throws AppletProjectInvalidDocException {
-				
-		if (doc == null)
-			return false;
-		
-		return validateDoc(doc);
 	}
 		
 		

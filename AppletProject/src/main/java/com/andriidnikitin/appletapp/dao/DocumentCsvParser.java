@@ -3,13 +3,15 @@ package com.andriidnikitin.appletapp.dao;
 import java.util.Date;
 
 import com.andriidnikitin.appletapp.bl.Document;
+import com.andriidnikitin.appletapp.commons.AppletProjectInvalidDocException;
 
 public class DocumentCsvParser {
 	
-	public static String unparseCsvString(Document doc){
+	public static String unparseCsvString(Document doc) throws AppletProjectInvalidDocException{
 		StringBuilder result = new StringBuilder();
 		String comma = ",";
 
+		try{
 		result.append(doc.getSurname()).append(comma);
 		result.append(doc.getName()).append(comma);
 		result.append(doc.getPatronym()).append(comma);
@@ -22,6 +24,9 @@ public class DocumentCsvParser {
 		result.append(doc.getRegistrator()).append(comma);
 		result.append(doc.getRegistratorDepartment()).append(comma);
 		result.append(unparseDate(doc.getDateOfRegistrating()));
+		} catch (Exception e){
+			throw new AppletProjectInvalidDocException(e); 
+		}
 		
 		return result.toString();
 	}
@@ -53,15 +58,23 @@ public class DocumentCsvParser {
 	}
 	
 	private static String unparseDate(Date d){
+		
 		if (d==null){
 			throw new IllegalArgumentException("Date cannot be null."); 
 		}
-		String str = d.toString().replace(',', '@');
+		@SuppressWarnings("deprecation")
+		String str = d.toGMTString().replace(',', '@');
 		return str;
 	}
 	
+	@SuppressWarnings("deprecation")
 	private static Date parseDate(String str){
-		Date d = new Date(str.replace('@', ','));
+		Date d = null;
+		try{
+			d = new Date(str.replace('@', ','));
+		} catch (Exception e){
+			throw new IllegalArgumentException("Invalid data:" + str);
+		}
 		return d;
 	}
 

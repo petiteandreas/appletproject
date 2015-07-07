@@ -2,9 +2,15 @@ package com.andriidnikitin.appletapp.bl;
 
 import java.util.Date;
 
+import com.andriidnikitin.appletapp.commons.AppletProjectInvalidDocException;
+
 public class DocumentValidator {
 		
-	public static boolean validateDoc(Document doc){
+	public static boolean validateDoc(Document doc) throws AppletProjectInvalidDocException{
+		
+		if (doc == null){
+			throw new AppletProjectInvalidDocException();
+		}
 		
 		if (!validNameSurnamePatronym(doc)){
 			return false;

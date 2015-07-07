@@ -96,6 +96,10 @@ public class TestUtil {
 		return list ;		
 	}
 	
+public static List<Document> generateCorruptedDataset() {
+		return generateInvalidDataset().subList(0, 2) ;		
+	}
+	
 	public static <T> boolean listsAreEqual(List<T> arg0, List<T> arg1){     
 	   return ((arg0.containsAll(arg1)) && (arg1.containsAll(arg0)));
 	}

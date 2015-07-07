@@ -12,6 +12,7 @@ import com.andriidnikitin.appletapp.commons.AppletProjectInvalidDocException;
 import com.andriidnikitin.appletapp.commons.AppletProjectPersistenceException;
 
 import static  com.andriidnikitin.appletapp.commons.TestUtil.*;
+import static com.andriidnikitin.appletapp.bl.DocumentValidator.*;
 import static org.junit.Assert.*;
 
 
@@ -104,10 +105,9 @@ public class DocumentServiceMultipleDataTest {
 		assertFalse(listsAreEqual(list1, list5));
 		
 
-		DocumentService service = new DocumentServiceImpl(); 
 		for (Document doc: generateValidDataset()){
 			try {
-				assertTrue(service.documentIsValid(doc));
+				assertTrue(validateDoc(doc));
 			} catch (AppletProjectInvalidDocException e) {				
 				e.printStackTrace();
 				fail(); 
