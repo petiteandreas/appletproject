@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import com.andriidnikitin.appletapp.bl.Document;
 import com.andriidnikitin.appletapp.bl.DocumentService;
-import com.andriidnikitin.appletapp.bl.DocumentServiceImpl;
+import com.andriidnikitin.appletapp.bl.DocumentServiceWithLocalAndExternalRepositories;
 import com.andriidnikitin.appletapp.commons.AppletProjectServiceException;
 
 import static  com.andriidnikitin.appletapp.commons.TestUtil.*;
@@ -20,19 +20,19 @@ public class DocumentServiceTest {
 	@Test
 	public void addCorrectDataAndCheckAddingTest(){
 				
-		DocumentService service = new DocumentServiceImpl();//given
+		DocumentService service = new DocumentServiceWithLocalAndExternalRepositories();//given
 		
-		Document  sampleValidDoc = generateSampleValidDoc();	//when			
+		List<Document> docs = new ArrayList<Document>();	//when	
+		docs.add(generateSampleValidDoc());
 				
 		try {												//then						
-			assertTrue(service.addDocument(sampleValidDoc));
+			service.addDocuments(docs);
 		} catch (Exception e) {
-			e.printStackTrace();
 			fail();
 		}			
 		
 		try {												//and				
-			assertTrue(service.containsDoc(sampleValidDoc));
+			assertTrue(service.containsAllDocs(docs));
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
@@ -42,11 +42,9 @@ public class DocumentServiceTest {
 	
 	@Test
 	public void testValidation(){
-
-		DocumentService service = new DocumentServiceImpl();//given
 		
-		Document  sampleValidDoc = generateSampleValidDoc(); //when
-		List<Document> invalidObjects = generateSampleSetOfValidDocs();
+		Document  sampleValidDoc = generateSampleValidDoc(); //given
+		List<Document> invalidObjects = generateSampleSetOfValidDocs();//when
 		
 		try {													//then
 			assertTrue(validateDoc(sampleValidDoc));
@@ -57,9 +55,7 @@ public class DocumentServiceTest {
 		
 		try {												
 			for (Document doc: invalidObjects){	
-				service.printDocument(System.out, doc);
-					assertFalse(
-							validateDoc(doc));			
+					assertFalse(validateDoc(doc));			
 			}
 		}  catch (Exception e) {
 			e.printStackTrace();
@@ -70,22 +66,23 @@ public class DocumentServiceTest {
 	@Test
 	public void checkDuplicationsTest(){
 		
-		DocumentService service = new DocumentServiceImpl();//given
-		Document originalObject = generateSampleValidDoc();
+		DocumentService service = new DocumentServiceWithLocalAndExternalRepositories();//given		
+		List<Document> docs = new ArrayList<Document>();	
+		docs.add(generateSampleValidDoc());
 		
 		try {												
-			service.addDocument(originalObject);
+			service.addDocuments(docs);
 		} catch (Exception e) {			
 			e.printStackTrace();
 			fail();
 		}		
 
-		Document duplicatedObject = originalObject;//when	
+		List<Document> duplicatedDocs = docs;//when	
 		
 		
 		try {										 //then								
-			assertTrue(service.containsDoc(duplicatedObject));
-			service.addDocument(duplicatedObject);
+			assertTrue(service.containsAllDocs(duplicatedDocs));
+			service.addDocuments(duplicatedDocs);
 			fail();
 		} catch (AppletProjectServiceException e) {			
 			return;
@@ -98,7 +95,7 @@ public class DocumentServiceTest {
 	
 	@Test
 	public void addValidMultipleDataTest(){
-		DocumentService service = new DocumentServiceImpl(); //given
+		DocumentService service = new DocumentServiceWithLocalAndExternalRepositories(); //given
 		
 		List<Document> list = new ArrayList<Document>(); 
 		
@@ -118,7 +115,7 @@ public class DocumentServiceTest {
 	
 	@Test
 	public void addInvalidMultipleDataTest(){
-		DocumentService service = new DocumentServiceImpl(); //given
+		DocumentService service = new DocumentServiceWithLocalAndExternalRepositories(); //given
 		
 		List<Document> listOfInvalidData = generateSampleSetOfValidDocs(); 			
 

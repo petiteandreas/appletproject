@@ -6,6 +6,8 @@ import com.andriidnikitin.appletapp.bl.Document;
 import com.andriidnikitin.appletapp.commons.AppletProjectPersistenceException;
 import com.andriidnikitin.appletapp.commons.AppletProjectServiceException;
 
+//TODO - delete
+@Deprecated
 public class DocumentParser {
 	
 	public static String stringifyDoc(Document doc) throws AppletProjectServiceException{

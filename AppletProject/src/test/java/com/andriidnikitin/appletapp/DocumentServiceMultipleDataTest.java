@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import com.andriidnikitin.appletapp.bl.Document;
 import com.andriidnikitin.appletapp.bl.DocumentService;
-import com.andriidnikitin.appletapp.bl.DocumentServiceImpl;
+import com.andriidnikitin.appletapp.bl.DocumentServiceWithLocalAndExternalRepositories;
 import com.andriidnikitin.appletapp.commons.AppletProjectServiceException;
 
 import static  com.andriidnikitin.appletapp.commons.TestUtil.*;
@@ -20,7 +20,7 @@ public class DocumentServiceMultipleDataTest {
 	@Test
 	public void addValidMultipleDataTest(){
 		
-		DocumentService service = new DocumentServiceImpl(); //given
+		DocumentService service = new DocumentServiceWithLocalAndExternalRepositories(); //given
 		
 		List<Document> list = generateSampleSetOfValidDocs(); 
 		
@@ -38,7 +38,7 @@ public class DocumentServiceMultipleDataTest {
 	@Test
 	public void addInvalidMultipleDataTest(){
 			
-		DocumentService service = new DocumentServiceImpl(); //given
+		DocumentService service = new DocumentServiceWithLocalAndExternalRepositories(); //given
 		
 		List<Document> listOfInvalidData = generateSampleSetOfInvalidDocs(); 		
 		
@@ -59,7 +59,7 @@ public class DocumentServiceMultipleDataTest {
 	@Test
 	public void addMixedMultipleDataTest(){
 			
-		DocumentService service = new DocumentServiceImpl(); 				//given
+		DocumentService service = new DocumentServiceWithLocalAndExternalRepositories(); 				//given
 		
 		List<Document> validDataset = generateSampleSetOfValidDocs();
 		List<Document> invalidDataset = generateSampleSetOfInvalidDocs();
@@ -87,7 +87,7 @@ public class DocumentServiceMultipleDataTest {
 	@Test
 	public void addNoDataTest(){
 		
-		DocumentService service = new DocumentServiceImpl(); 				//given
+		DocumentService service = new DocumentServiceWithLocalAndExternalRepositories(); 				//given
 		
 		List<Document> emptyListData = new ArrayList<Document>(); 			
 
