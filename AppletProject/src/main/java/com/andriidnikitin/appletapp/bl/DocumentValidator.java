@@ -2,14 +2,14 @@ package com.andriidnikitin.appletapp.bl;
 
 import java.util.Date;
 
-import com.andriidnikitin.appletapp.commons.AppletProjectInvalidDocException;
+import com.andriidnikitin.appletapp.commons.AppletProjectServiceException;
 
 public class DocumentValidator {
 		
-	public static boolean validateDoc(Document doc) throws AppletProjectInvalidDocException{
+	public static boolean validateDoc(Document doc) throws AppletProjectServiceException{
 		
-		if (doc == null){
-			throw new AppletProjectInvalidDocException();
+		if (!(nullFieldValidation(doc))){
+			return false;
 		}
 		
 		if (!validNameSurnamePatronym(doc)){
@@ -37,6 +37,35 @@ public class DocumentValidator {
 		}
 		
 		return true;
+	}
+
+	private static boolean nullFieldValidation(Document doc) {
+		if (doc == null ){
+			return false;
+		}
+		
+		if (documentHasNullFields(doc)){
+			return false;
+		}				
+		
+		return true;
+	}
+
+	private static boolean documentHasNullFields(Document doc) {
+		return !(
+				(doc.getBirthday() != null)
+				&& (doc.getBirthplaceArea() != null) 
+				&& (doc.getBirthplaceCity() != null) 
+				&& (doc.getBirthplaceRegion() != null) 
+				&& (doc.getDateOfRegistrating() != null) 
+				&& (doc.getName() != null) 
+				&& (doc.getPassportId() != null) 
+				&& (doc.getPassportSerial() != null) 
+				&& (doc.getPatronym() != null) 
+				&& (doc.getRegistrator() != null) 
+				&& (doc.getRegistratorDepartment() != null) 
+				&& (doc.getSurname() != null) 
+				);
 	}
 
 	private static boolean validRegistrator(Document doc) {

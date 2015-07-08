@@ -9,19 +9,19 @@ import java.util.List;
 import org.junit.Test;
 
 import com.andriidnikitin.appletapp.bl.Document;
-import com.andriidnikitin.appletapp.dao.CsvDocumentWrapper;
+import com.andriidnikitin.appletapp.dao.RepositoryManagable;
 import com.andriidnikitin.appletapp.dao.FileManager;
-import com.andriidnikitin.appletapp.dao.FileManagerImpl;
+import com.andriidnikitin.appletapp.dao.infrastructure.DocumentWrapper;
 
 public class FileTest {
 
 	@Test
 	public void wrapperWrapsDocumentsToValidCvsTest(){
 		
-		List<Document> list = generateValidDataset();     //given
-		FileManager manager = new FileManagerImpl();
+		List<Document> list = generateSampleSetOfValidDocs();     //given
+		RepositoryManagable manager = new FileManager();
 		
-		File wrappedFile = CsvDocumentWrapper.wrap(list); //when
+		File wrappedFile = DocumentWrapper.wrap(list); //when
 				
 		assertTrue(manager.isValidCsvDocumentFile(wrappedFile)); //then		
 	}

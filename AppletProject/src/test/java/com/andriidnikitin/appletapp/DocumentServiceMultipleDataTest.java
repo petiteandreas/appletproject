@@ -8,8 +8,7 @@ import org.junit.Test;
 import com.andriidnikitin.appletapp.bl.Document;
 import com.andriidnikitin.appletapp.bl.DocumentService;
 import com.andriidnikitin.appletapp.bl.DocumentServiceImpl;
-import com.andriidnikitin.appletapp.commons.AppletProjectInvalidDocException;
-import com.andriidnikitin.appletapp.commons.AppletProjectPersistenceException;
+import com.andriidnikitin.appletapp.commons.AppletProjectServiceException;
 
 import static  com.andriidnikitin.appletapp.commons.TestUtil.*;
 import static com.andriidnikitin.appletapp.bl.DocumentValidator.*;
@@ -23,11 +22,16 @@ public class DocumentServiceMultipleDataTest {
 		
 		DocumentService service = new DocumentServiceImpl(); //given
 		
-		List<Document> list = generateValidDataset(); 
+		List<Document> list = generateSampleSetOfValidDocs(); 
 		
-		List<Document> failedToAdd = service.addDocuments(list); //when
-		
-		assertTrue(failedToAdd.isEmpty());//then		
+		List<Document> failedToAdd;
+		try {
+			failedToAdd = service.addDocuments(list);//when
+			
+			assertTrue(failedToAdd.isEmpty());//then	
+		} catch (AppletProjectServiceException e) {
+			fail();
+		} 	
 		
 	}
 	
@@ -36,11 +40,19 @@ public class DocumentServiceMultipleDataTest {
 			
 		DocumentService service = new DocumentServiceImpl(); //given
 		
-		List<Document> listOfInvalidData = generateInvalidDataset(); 			
-
-		List<Document> failedToAdd = service.addDocuments(listOfInvalidData); //when
+		List<Document> listOfInvalidData = generateSampleSetOfInvalidDocs(); 		
 		
-		assertTrue(listsAreEqual(failedToAdd, listOfInvalidData));//then		
+		try {
+			
+			List<Document> failedToAdd = service.addDocuments(listOfInvalidData); //when
+			
+			assertTrue(listsAreEqual(failedToAdd, listOfInvalidData));//then	
+			
+		} catch (AppletProjectServiceException e){
+			fail();
+		}
+
+			
 		 
 	}
 	
@@ -49,22 +61,26 @@ public class DocumentServiceMultipleDataTest {
 			
 		DocumentService service = new DocumentServiceImpl(); 				//given
 		
-		List<Document> validDataset = generateValidDataset();
-		List<Document> invalidDataset = generateInvalidDataset();
+		List<Document> validDataset = generateSampleSetOfValidDocs();
+		List<Document> invalidDataset = generateSampleSetOfInvalidDocs();
 		
 		List<Document> listOfData = new ArrayList<Document>();		
 		listOfData.addAll(validDataset);		
 		listOfData.addAll(invalidDataset);
-
-		List<Document> failedToAdd = service.addDocuments(listOfData);    //when
 		
-		assertTrue(listsAreEqual(failedToAdd, invalidDataset));				//then
-		try {
+		try{
+	
+			List<Document> failedToAdd = service.addDocuments(listOfData);    //when
+			
+			assertTrue(listsAreEqual(failedToAdd, invalidDataset));				//then
+			
 			assertTrue(service.containsAllDocs(validDataset));
-		} catch (AppletProjectPersistenceException e) {			
-			e.printStackTrace();
+			
+		} catch (AppletProjectServiceException e){
 			fail();
 		}
+		
+		
 		 
 	}
 	
@@ -75,9 +91,17 @@ public class DocumentServiceMultipleDataTest {
 		
 		List<Document> emptyListData = new ArrayList<Document>(); 			
 
-		List<Document> failedToAdd = service.addDocuments(emptyListData); //when
-		
-		assertTrue(failedToAdd.isEmpty());									//then		
+		try{
+			
+
+			List<Document> failedToAdd = service.addDocuments(emptyListData); //when
+			
+			assertTrue(failedToAdd.isEmpty());									//then		
+			
+			
+		} catch (AppletProjectServiceException e){
+			fail();
+		}
 		
 	}
 	
@@ -105,10 +129,10 @@ public class DocumentServiceMultipleDataTest {
 		assertFalse(listsAreEqual(list1, list5));
 		
 
-		for (Document doc: generateValidDataset()){
+		for (Document doc: generateSampleSetOfValidDocs()){
 			try {
 				assertTrue(validateDoc(doc));
-			} catch (AppletProjectInvalidDocException e) {				
+			} catch (AppletProjectServiceException e) {				
 				e.printStackTrace();
 				fail(); 
 			} 

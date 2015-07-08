@@ -4,18 +4,17 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.andriidnikitin.appletapp.commons.AppletProjectElementNotFoundException;
 import com.andriidnikitin.appletapp.commons.AppletProjectException;
 import com.andriidnikitin.appletapp.commons.AppletProjectPersistenceException;
-import com.andriidnikitin.appletapp.commons.AppletProjectUnableToAddException;
-import com.andriidnikitin.appletapp.dao.FileManager;
+import com.andriidnikitin.appletapp.commons.AppletProjectServiceException;
+import com.andriidnikitin.appletapp.dao.RepositoryManagable;
 import com.andriidnikitin.appletapp.dao.FileManagerListStub;
 
 import static com.andriidnikitin.appletapp.bl.DocumentValidator.*;
 
 public class DocumentServiceImpl implements DocumentService {
 
-	private FileManager manager;//TODO - inject with spring
+	private RepositoryManagable manager;//TODO - inject with spring
 		
 	public DocumentServiceImpl() {
 		super();
@@ -24,17 +23,17 @@ public class DocumentServiceImpl implements DocumentService {
 
 	@Override
 	public boolean addDocument(Document doc)
-			throws AppletProjectUnableToAddException {		
+			throws AppletProjectServiceException {		
 		try {
 			if (this.containsDoc(doc)){
-				throw new AppletProjectUnableToAddException(doc + "already exists");
+				throw new AppletProjectServiceException( "Unable to add already existing doc" + doc);
 			}
 			if (!validateDoc(doc)){
 				return false;
 			}
 			manager.persistDocument(doc);
 		} catch (AppletProjectException e) {
-			throw new AppletProjectUnableToAddException(e);
+			throw new AppletProjectServiceException(e);
 		}
 		
 		return true;
@@ -43,13 +42,13 @@ public class DocumentServiceImpl implements DocumentService {
 		
 		
 	@Override
-	public boolean containsDoc(Document doc) throws AppletProjectPersistenceException {	
+	public boolean containsDoc(Document doc) throws AppletProjectServiceException {	
 		if (doc == null) {
 			return false;
 		}
 		try {
-			return (null != manager.getDocument(doc.getPassportSerial(), doc.getPassportId()));
-		} catch (AppletProjectElementNotFoundException e) {
+				return (null != manager.getDocument(doc.getPassportSerial(), doc.getPassportId()));
+		} catch (AppletProjectPersistenceException e) {
 			return false;
 		}
 	}
@@ -72,18 +71,19 @@ public class DocumentServiceImpl implements DocumentService {
 	/**
 	 * @param list is list of new documents that should be added
 	 * @return list of documents that were not added 
+	 * @throws AppletProjectServiceException 
 	*/
 	@Override
-	public List<Document> addDocuments(List<Document> list) {
+	public List<Document> addDocuments(List<Document> list) throws AppletProjectServiceException {
 		List<Document> fails = new ArrayList<Document>();
 		for (Document doc: list){
-			try {
-				if (!addDocument(doc)){
+				try {
+					if (!addDocument(doc)){
+						fails.add(doc);
+					}					
+				} catch (AppletProjectServiceException e){
 					fails.add(doc);
-				}
-			} catch (AppletProjectUnableToAddException e){
-				fails.add(doc);
-			}
+				}	
 		}
 		return fails;		
 	}
@@ -96,7 +96,7 @@ public class DocumentServiceImpl implements DocumentService {
 	 */
 	@Override
 	public boolean containsAllDocs(List<Document> validDataset) 
-			throws AppletProjectPersistenceException {
+			throws AppletProjectServiceException {
 		for (Document doc: validDataset){
 			if (!containsDoc(doc)){
 				return false;

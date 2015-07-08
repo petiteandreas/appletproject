@@ -9,6 +9,7 @@ import org.junit.runners.Suite;
    //FileTest.class, 
    //UserInterfaceTest.class, 
    DocumentServiceMultipleDataTest.class, 
+   //DocumentCsvParserTest.class, 
    DocumentServiceTest.class
 })
 public class TestSuite {

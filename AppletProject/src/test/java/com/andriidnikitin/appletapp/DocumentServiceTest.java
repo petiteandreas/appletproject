@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.andriidnikitin.appletapp.bl.Document;
 import com.andriidnikitin.appletapp.bl.DocumentService;
 import com.andriidnikitin.appletapp.bl.DocumentServiceImpl;
-import com.andriidnikitin.appletapp.commons.AppletProjectUnableToAddException;
+import com.andriidnikitin.appletapp.commons.AppletProjectServiceException;
 
 import static  com.andriidnikitin.appletapp.commons.TestUtil.*;
 import static com.andriidnikitin.appletapp.bl.DocumentValidator.*;
@@ -22,7 +22,7 @@ public class DocumentServiceTest {
 				
 		DocumentService service = new DocumentServiceImpl();//given
 		
-		Document  sampleValidDoc = generateValidSampleData();	//when			
+		Document  sampleValidDoc = generateSampleValidDoc();	//when			
 				
 		try {												//then						
 			assertTrue(service.addDocument(sampleValidDoc));
@@ -45,8 +45,8 @@ public class DocumentServiceTest {
 
 		DocumentService service = new DocumentServiceImpl();//given
 		
-		Document  sampleValidDoc = generateValidSampleData(); //when
-		List<Document> invalidObjects = generateInvalidDataset();
+		Document  sampleValidDoc = generateSampleValidDoc(); //when
+		List<Document> invalidObjects = generateSampleSetOfValidDocs();
 		
 		try {													//then
 			assertTrue(validateDoc(sampleValidDoc));
@@ -71,7 +71,7 @@ public class DocumentServiceTest {
 	public void checkDuplicationsTest(){
 		
 		DocumentService service = new DocumentServiceImpl();//given
-		Document originalObject = generateValidSampleData();
+		Document originalObject = generateSampleValidDoc();
 		
 		try {												
 			service.addDocument(originalObject);
@@ -87,9 +87,10 @@ public class DocumentServiceTest {
 			assertTrue(service.containsDoc(duplicatedObject));
 			service.addDocument(duplicatedObject);
 			fail();
-		} catch (AppletProjectUnableToAddException e) {			
+		} catch (AppletProjectServiceException e) {			
 			return;
 		} catch (Exception e) {	
+			e.printStackTrace();
 			fail();
 		}
 		
@@ -101,13 +102,17 @@ public class DocumentServiceTest {
 		
 		List<Document> list = new ArrayList<Document>(); 
 		
-		Document newDocument = generateValidSampleData();
+		Document newDocument = generateSampleValidDoc();
 		newDocument.setPassportId("ZZ");
 		newDocument.setName("Igor");
 
-		List<Document> failedToAdd = service.addDocuments(list); //when
-		
-		failedToAdd.isEmpty();//then		
+		List<Document> failedToAdd;
+		try {
+			failedToAdd = service.addDocuments(list);//when				
+			failedToAdd.isEmpty();//then	
+		} catch (AppletProjectServiceException e) {
+			fail();
+		} 
 		
 	}
 	
@@ -115,11 +120,15 @@ public class DocumentServiceTest {
 	public void addInvalidMultipleDataTest(){
 		DocumentService service = new DocumentServiceImpl(); //given
 		
-		List<Document> listOfInvalidData = generateInvalidDataset(); 			
+		List<Document> listOfInvalidData = generateSampleSetOfValidDocs(); 			
 
-		List<Document> failedToAdd = service.addDocuments(listOfInvalidData); //when
-		
-		failedToAdd.equals(listOfInvalidData);//then		
+		List<Document> failedToAdd;
+		try {
+			failedToAdd = service.addDocuments(listOfInvalidData); //when			
+			assertTrue(listsAreEqual(failedToAdd,listOfInvalidData));//then	
+		} catch (AppletProjectServiceException e) {
+			fail();
+		}	
 		
 	}
 	

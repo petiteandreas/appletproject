@@ -2,14 +2,19 @@ package com.andriidnikitin.appletapp.commons;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.andriidnikitin.appletapp.bl.Document;
 
+import static com.andriidnikitin.appletapp.dao.infrastructure.DocumentParser.*;
+
 public class TestUtil {
 	
+	private static final String UNPARSEABLE_TO_DATE = "rvt5bb56vbu";
+
 	@SuppressWarnings("deprecation")
-	public static Document generateValidSampleData(){
+	public static Document generateSampleValidDoc(){
 
 		Document sampleValidDoc = new Document();
 
@@ -30,9 +35,9 @@ public class TestUtil {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static List<Document> generateInvalidDataset() {
+	public static List<Document> generateSampleSetOfInvalidDocs() {
 		
-		Document validObject = generateValidSampleData();
+		Document validObject = generateSampleValidDoc();
 		
 		List<Document> result = new ArrayList<Document>();
 		
@@ -46,16 +51,16 @@ public class TestUtil {
 		
 		for (String invalidString: invalidStrings){
 			
-			validObject = generateValidSampleData();
+			validObject = generateSampleValidDoc();
 			validObject.setSurname(invalidString);
 			result.add(validObject);
 			
 
-			validObject = generateValidSampleData();
+			validObject = generateSampleValidDoc();
 			validObject.setName(invalidString);
 			result.add(validObject);
 
-			validObject = generateValidSampleData();
+			validObject = generateSampleValidDoc();
 			validObject.setPatronym((invalidString == null) ? invalidString : "1234");
 			result.add(validObject);
 						
@@ -63,44 +68,151 @@ public class TestUtil {
 		
 		Date invalidBirthdayAfterToday = new Date();
 		invalidBirthdayAfterToday.setYear(116);
-		Document invalidObject = generateValidSampleData();
+		Document invalidObject = generateSampleValidDoc();
 		invalidObject.setBirthday(invalidBirthdayAfterToday);
 		result.add(invalidObject);
 		
 		Date invalidRegistrationDateAfterToday = new Date();
 		invalidRegistrationDateAfterToday.setYear(116); 
-		invalidObject = generateValidSampleData();
+		invalidObject = generateSampleValidDoc();
 		invalidObject.setDateOfRegistrating(invalidRegistrationDateAfterToday);
 		result.add(invalidObject);
 		
 		long day = 24 * 60 * 60 * 1000;  
-		invalidObject = generateValidSampleData();
+		invalidObject = generateSampleValidDoc();
 		Date invalidRegistrationDateBeforeBirthday = invalidObject.getBirthday();
 		long invalidRegistrationTime = invalidRegistrationDateBeforeBirthday.getTime() - day;		
 		invalidObject.setDateOfRegistrating(new Date(invalidRegistrationTime));
 		result.add(invalidObject);	
 		
+		result.addAll(generateSampleSetOfCorruptedDocs());
+		
 		return result;
 	}
 	
 
-	public static List<Document> generateValidDataset() {
+	public static List<Document> generateSampleSetOfValidDocs() {
 		
 		List<Document> list = new ArrayList<Document>();
 
-		Document newDocument = generateValidSampleData();
+		Document newDocument = generateSampleValidDoc();
 		newDocument.setPassportId("123459");
 		newDocument.setName("Igor");
 		list.add(newDocument);
-		list.add(generateValidSampleData());
+		list.add(generateSampleValidDoc());
 		return list ;		
 	}
 	
-public static List<Document> generateCorruptedDataset() {
-		return generateInvalidDataset().subList(0, 2) ;		
+public static List<Document> generateSampleSetOfCorruptedDocs() {
+		List<Document> list = new ArrayList<Document>();
+		Document invalidDoc;
+
+		invalidDoc = generateSampleValidDoc();
+		invalidDoc.setBirthday(null);
+		list.add(invalidDoc);
+		
+		invalidDoc = generateSampleValidDoc();
+		invalidDoc.setBirthplaceArea(null);
+		list.add(invalidDoc);
+		
+		invalidDoc = generateSampleValidDoc();
+		invalidDoc.setBirthplaceCity(null);
+		list.add(invalidDoc);
+		
+		invalidDoc = generateSampleValidDoc();
+		invalidDoc.setBirthplaceRegion(null);
+		list.add(invalidDoc);
+		
+		invalidDoc = generateSampleValidDoc();
+		invalidDoc.setDateOfRegistrating(null);
+		list.add(invalidDoc);
+		
+		invalidDoc = generateSampleValidDoc();
+		invalidDoc.setName(null);
+		list.add(invalidDoc);
+		
+		invalidDoc = generateSampleValidDoc();
+		invalidDoc.setPassportId(null);
+		list.add(invalidDoc);
+		
+		invalidDoc = generateSampleValidDoc();
+		invalidDoc.setPassportSerial(null);
+		list.add(invalidDoc);
+		
+		invalidDoc = generateSampleValidDoc();
+		invalidDoc.setPatronym(null);
+		list.add(invalidDoc);
+		
+		invalidDoc = generateSampleValidDoc();
+		invalidDoc.setRegistrator(null);
+		list.add(invalidDoc);
+		
+		invalidDoc = generateSampleValidDoc();
+		invalidDoc.setRegistratorDepartment(null);
+		list.add(invalidDoc);
+		
+		invalidDoc = generateSampleValidDoc();
+		invalidDoc.setSurname(null);
+		list.add(invalidDoc);
+		
+		list.add(null);
+		
+		return list;
 	}
 	
 	public static <T> boolean listsAreEqual(List<T> arg0, List<T> arg1){     
-	   return ((arg0.containsAll(arg1)) && (arg1.containsAll(arg0)));
+		if (!((arg0 == null) && (arg1 == null))){
+			return ((arg0.containsAll(arg1)) && (arg1.containsAll(arg0)) 
+					&& (arg0.size() == arg1.size()));
+		}
+		return false;
 	}
+	
+	public static List<String> generateSampleSetOfCorruptedStrigifiedDocs() {
+		List<String> list = new LinkedList<String>();
+		String stringifiedValidDoc = null;
+		
+		try {
+			stringifiedValidDoc = stringifyDoc(generateSampleValidDoc());
+		} catch (AppletProjectServiceException e) {
+			e.printStackTrace();
+		}
+		
+		addElementsWithNullFields(list, stringifiedValidDoc);
+
+		addRecordsWithInvalidDates(list, stringifiedValidDoc);
+				
+		list.add(null);
+		
+		return list;
+	}
+
+	private static void addRecordsWithInvalidDates(List<String> list,
+			String stringifiedValidDoc) {
+		list.add(replaceStringifiedDocElementWith(stringifiedValidDoc, 3,UNPARSEABLE_TO_DATE));
+		
+		list.add(replaceStringifiedDocElementWith(stringifiedValidDoc, 11,UNPARSEABLE_TO_DATE));
+	}
+
+	private static void addElementsWithNullFields(List<String> list,
+			String stringifiedValidDoc) {
+		for (int i=0; i<12; i++){
+			list.add(replaceStringifiedDocElementWith(stringifiedValidDoc, i, ""));
+		}
+	}
+	
+	private static String replaceStringifiedDocElementWith(String doc, 
+			int position, String holder){
+		StringBuilder newDoc = new StringBuilder();
+		String[] array = doc.toString().split(",");
+		array[position] = holder;
+		for (String element: array){
+			newDoc.append(element).append(",");
+		}
+		int positionOfLastelement = newDoc.length() - 1;
+		newDoc.deleteCharAt(positionOfLastelement);
+		return newDoc.toString() ;
+		
+	}
+	
 }

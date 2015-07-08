@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.andriidnikitin.appletapp.bl.Document;
-import com.andriidnikitin.appletapp.commons.AppletProjectElementNotFoundException;
 import com.andriidnikitin.appletapp.commons.AppletProjectPersistenceException;
 
-public class FileManagerListStub implements FileManager {
+public class FileManagerListStub implements RepositoryManagable {
 	
 	private List<Document> elements; 
 
@@ -26,7 +25,8 @@ public class FileManagerListStub implements FileManager {
 	}
 
 	@Override
-	public Document getDocument(String passportSerial, String passportId) throws AppletProjectElementNotFoundException {
+	public Document getDocument(String passportSerial, String passportId)
+			throws AppletProjectPersistenceException {
 		if ((passportSerial != null) &&  (passportId != null)){
 			for (Document temp: elements){
 				if ((passportId.equals(temp.getPassportId()) && 
@@ -34,7 +34,7 @@ public class FileManagerListStub implements FileManager {
 								return temp;
 			}
 		}
-		throw new AppletProjectElementNotFoundException();
+		throw new AppletProjectPersistenceException();
 	}
 
 	@Override
