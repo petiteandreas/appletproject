@@ -18,4 +18,7 @@ public interface DocumentService {
 
 	List<Document> persistDocuments(List<Document> list)
 			throws AppletProjectServiceException;
+
+	boolean containsAnyDoc(List<Document> data)
+			throws AppletProjectServiceException;
 }

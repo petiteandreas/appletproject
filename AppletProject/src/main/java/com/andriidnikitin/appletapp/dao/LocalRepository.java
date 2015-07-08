@@ -39,5 +39,19 @@ public class LocalRepository implements RepositoryManageable {
 		}
 		return true;
 	}
+
+	@Override
+	public boolean containsAnyDoc(List<Document> data)
+			throws AppletProjectPersistenceException {
+		if (data == null){
+			return false;
+		}
+		for (Document doc : data){
+			if (data.contains(doc)){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 }

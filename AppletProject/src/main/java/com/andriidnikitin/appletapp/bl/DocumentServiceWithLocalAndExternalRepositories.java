@@ -62,8 +62,8 @@ public class DocumentServiceWithLocalAndExternalRepositories implements Document
 		List<Document> fails = new ArrayList<Document>();
 		List<Document> validDocs = new ArrayList<Document>();
 		for (Document doc: list){
-			if (!validateDoc(doc)) 
-				fails.add(doc);
+			if (!validateDoc(doc))
+				fails.add(doc);			
 			else validDocs.add(doc);
 		}
 		try {
@@ -87,6 +87,23 @@ public class DocumentServiceWithLocalAndExternalRepositories implements Document
 			throws AppletProjectServiceException {		
 		try {
 			return localRepoManager.containsAllDocs(data);
+		} catch (AppletProjectPersistenceException e) {			
+			throw new AppletProjectServiceException(e);
+		}
+		
+	}
+	
+	/**
+	 * @param data is list of documents that should be checked - whether 
+	 * they are already persisted
+	 * 
+	 * @return false if at least one of them is persisted
+	 */
+	@Override
+	public boolean containsAnyDoc(List<Document> data) 
+			throws AppletProjectServiceException {		
+		try {
+			return localRepoManager.containsAnyDoc(data);
 		} catch (AppletProjectPersistenceException e) {			
 			throw new AppletProjectServiceException(e);
 		}

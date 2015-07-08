@@ -81,9 +81,8 @@ public class DocumentServiceTest {
 		
 		
 		try {										 //then								
-			assertTrue(service.containsAllDocs(duplicatedDocs));
-			service.addDocuments(duplicatedDocs);
-			fail();
+			assertTrue(service.containsAllDocs(duplicatedDocs));			
+			assertTrue(listsAreEqual(duplicatedDocs, service.addDocuments(duplicatedDocs)));
 		} catch (AppletProjectServiceException e) {			
 			return;
 		} catch (Exception e) {	

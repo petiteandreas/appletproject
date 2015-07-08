@@ -79,6 +79,12 @@ public class ManagerOfFileRepository implements RepositoryManageable, FileManage
 			return false;
 		}
 		return file.getPath().equals(path);
-	}	
+	}
+
+	@Override
+	public boolean containsAnyDoc(List<Document> data)
+			throws AppletProjectPersistenceException {
+		 throw new AppletProjectPersistenceException("This operation is not supported");
+	}
 
 }

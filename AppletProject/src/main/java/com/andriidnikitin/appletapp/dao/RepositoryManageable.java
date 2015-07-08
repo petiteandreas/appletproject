@@ -14,6 +14,8 @@ public interface RepositoryManageable {
 
 	boolean containsAllDocs(List<Document> docs)
 			throws AppletProjectPersistenceException;
+
+	boolean containsAnyDoc(List<Document> data) throws AppletProjectPersistenceException;
 	
 	
 	
