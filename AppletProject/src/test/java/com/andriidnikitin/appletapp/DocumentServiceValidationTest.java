@@ -15,7 +15,7 @@ import com.andriidnikitin.appletapp.commons.AppletProjectServiceException;
 import static  com.andriidnikitin.appletapp.commons.TestUtil.*;
 import static com.andriidnikitin.appletapp.bl.DocumentValidator.*;
 
-public class DocumentServiceTest {
+public class DocumentServiceValidationTest {
 
 	@Test
 	public void addCorrectDataAndCheckAddingTest(){

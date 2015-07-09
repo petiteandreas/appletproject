@@ -9,18 +9,21 @@ import com.andriidnikitin.appletapp.bl.Document;
 import com.andriidnikitin.appletapp.bl.DocumentService;
 import com.andriidnikitin.appletapp.bl.DocumentServiceWithLocalAndExternalRepositories;
 import com.andriidnikitin.appletapp.commons.AppletProjectServiceException;
+import com.andriidnikitin.appletapp.dao.LocalRepository;
 
 import static  com.andriidnikitin.appletapp.commons.TestUtil.*;
 import static com.andriidnikitin.appletapp.bl.DocumentValidator.*;
 import static org.junit.Assert.*;
 
 
-public class DocumentServiceMultipleDataTest {
+public class DocumentServiceBasicFunctionalityTest {
 	
 	@Test
 	public void addValidMultipleDataTest(){
 		
-		DocumentService service = new DocumentServiceWithLocalAndExternalRepositories(); //given
+		DocumentService service = new DocumentServiceWithLocalAndExternalRepositories()
+			.setExternalRepo(new LocalRepository()); //given
+		
 		
 		List<Document> list = generateSampleSetOfValidDocs(); 
 		
@@ -38,7 +41,8 @@ public class DocumentServiceMultipleDataTest {
 	@Test
 	public void addInvalidMultipleDataTest(){
 			
-		DocumentService service = new DocumentServiceWithLocalAndExternalRepositories(); //given
+		DocumentService service = new DocumentServiceWithLocalAndExternalRepositories()
+		.setExternalRepo(new LocalRepository()); //given
 		
 		List<Document> listOfInvalidData = generateSampleSetOfInvalidDocs(); 		
 		
@@ -59,7 +63,9 @@ public class DocumentServiceMultipleDataTest {
 	@Test
 	public void addMixedMultipleDataTest(){
 			
-		DocumentService service = new DocumentServiceWithLocalAndExternalRepositories(); 				//given
+		DocumentService service = new DocumentServiceWithLocalAndExternalRepositories()
+		.setExternalRepo(new LocalRepository()); //given
+					//given
 		
 		List<Document> validDataset = generateSampleSetOfValidDocs();
 		List<Document> invalidDataset = generateSampleSetOfInvalidDocs();
@@ -87,12 +93,14 @@ public class DocumentServiceMultipleDataTest {
 	@Test
 	public void addNoDataTest(){
 		
-		DocumentService service = new DocumentServiceWithLocalAndExternalRepositories(); 				//given
+		DocumentService service = new DocumentServiceWithLocalAndExternalRepositories()
+		.setExternalRepo(new LocalRepository()); //given
+		
+						//given
 		
 		List<Document> emptyListData = new ArrayList<Document>(); 			
 
-		try{
-			
+		try{		
 
 			List<Document> failedToAdd = service.addDocuments(emptyListData); //when
 			

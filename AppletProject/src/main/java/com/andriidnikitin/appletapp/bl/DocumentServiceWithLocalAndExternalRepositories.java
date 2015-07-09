@@ -15,16 +15,20 @@ public class DocumentServiceWithLocalAndExternalRepositories implements Document
 
 	private RepositoryManageable externalRepoManager;//TODO - inject with spring
 	
-	private RepositoryManageable localRepoManager;
+	private RepositoryManageable localRepoManager;	
 		
 	public DocumentServiceWithLocalAndExternalRepositories() {
 		super();
-		//TODO - fix
-		externalRepoManager = new LocalRepository();//ManagerOfFileRepository();
+		externalRepoManager = new ManagerOfFileRepository();
 		localRepoManager = new LocalRepository();
 	}		
 	
-			
+	public DocumentServiceWithLocalAndExternalRepositories 
+			setExternalRepo(RepositoryManageable repo){
+		externalRepoManager = repo;
+		return this;
+	}
+					
 	@Override
 	public boolean containsDoc(Document doc) throws AppletProjectServiceException {	
 		
