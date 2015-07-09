@@ -3,15 +3,10 @@ package com.andriidnikitin.appletapp.ui;
 import java.applet.Applet;
 import java.awt.Component;
 import java.awt.Event;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.TextField;
-import java.util.Date;
-
-import javax.swing.GroupLayout;
-import javax.swing.JPanel;
 
 import com.andriidnikitin.appletapp.ui.infrastructure.DateField;
 import com.andriidnikitin.appletapp.ui.model.PassportDetailsModel;

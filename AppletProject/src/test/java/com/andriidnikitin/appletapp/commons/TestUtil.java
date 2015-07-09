@@ -6,9 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.andriidnikitin.appletapp.bl.Document;
-
-import static com.andriidnikitin.appletapp.dao.infrastructure.DocumentParser.*;
-
 public class TestUtil {
 	
 	private static final String UNPARSEABLE_TO_DATE = "rvt5bb56vbu";
@@ -185,6 +182,12 @@ public static List<Document> generateSampleSetOfCorruptedDocs() {
 		list.add(null);
 		
 		return list;
+	}
+
+	private static String stringifyDoc(Document generateSampleValidDoc) throws AppletProjectServiceException {
+		// TODO Auto-generated method stub
+		//write metod for strinification
+		return null;
 	}
 
 	private static void addRecordsWithInvalidDates(List<String> list,

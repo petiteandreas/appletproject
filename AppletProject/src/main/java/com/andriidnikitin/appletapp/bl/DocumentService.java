@@ -3,6 +3,7 @@ package com.andriidnikitin.appletapp.bl;
 import java.util.List;
 
 import com.andriidnikitin.appletapp.commons.AppletProjectServiceException;
+import com.andriidnikitin.appletapp.dao.RepositoryManageable;
 
 public interface DocumentService {
 			
@@ -21,4 +22,7 @@ public interface DocumentService {
 
 	boolean containsAnyDoc(List<Document> data)
 			throws AppletProjectServiceException;
+
+	DocumentServiceWithLocalAndExternalRepositories setExternalRepo(
+			RepositoryManageable repo);
 }

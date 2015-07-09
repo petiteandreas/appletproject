@@ -23,6 +23,7 @@ public class DocumentServiceWithLocalAndExternalRepositories implements Document
 		localRepoManager = new LocalRepository();
 	}		
 	
+	@Override
 	public DocumentServiceWithLocalAndExternalRepositories 
 			setExternalRepo(RepositoryManageable repo){
 		externalRepoManager = repo;
@@ -74,7 +75,6 @@ public class DocumentServiceWithLocalAndExternalRepositories implements Document
 			externalRepoManager.persistDocuments(validDocs);
 			localRepoManager.persistDocuments(validDocs);
 		} catch (AppletProjectPersistenceException e) {
-			// TODO Auto-generated catch block
 			throw new AppletProjectServiceException(e);
 		}
 		return fails;

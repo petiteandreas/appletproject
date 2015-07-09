@@ -1,7 +1,6 @@
 package com.andriidnikitin.appletapp;
 
 import static com.andriidnikitin.appletapp.commons.TestUtil.*;
-import static com.andriidnikitin.appletapp.dao.infrastructure.DocumentParser.*;
 import static org.junit.Assert.*;
 
 import java.util.List;
