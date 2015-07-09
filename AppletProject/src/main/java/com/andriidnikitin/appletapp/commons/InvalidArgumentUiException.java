@@ -1,5 +1,7 @@
 package com.andriidnikitin.appletapp.commons;
 
+import java.text.ParseException;
+
 public class InvalidArgumentUiException extends AppletProjectException {
 
 	public InvalidArgumentUiException(AppletProjectException e) {
@@ -8,6 +10,10 @@ public class InvalidArgumentUiException extends AppletProjectException {
 
 	public InvalidArgumentUiException(String string) {
 		super(string);
+	}
+
+	public InvalidArgumentUiException(ParseException e) {
+		super(e);
 	}
 
 	/**
