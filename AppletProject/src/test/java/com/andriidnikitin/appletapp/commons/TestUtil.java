@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.andriidnikitin.appletapp.bl.Document;
+import com.andriidnikitin.appletapp.ui.infrastructure.DateParser;
 public class TestUtil {
 	
 	private static final String UNPARSEABLE_TO_DATE = "rvt5bb56vbu";
@@ -184,11 +185,30 @@ public static List<Document> generateSampleSetOfCorruptedDocs() {
 		return list;
 	}
 
-	private static String stringifyDoc(Document generateSampleValidDoc) throws AppletProjectServiceException {
-		// TODO Auto-generated method stub
-		//write metod for strinification
-		return null;
+	public static String stringifyDoc(Document doc) throws AppletProjectServiceException{
+		StringBuilder result = new StringBuilder();
+		String comma = ",";
+
+		try{
+			result.append(doc.getSurname()).append(comma);
+			result.append(doc.getName()).append(comma);
+			result.append(doc.getPatronym()).append(comma);
+			result.append(DateParser.unparseDate(doc.getBirthday())).append(comma);
+			result.append(doc.getBirthplaceCity()).append(comma);
+			result.append(doc.getBirthplaceArea()).append(comma);
+			result.append(doc.getBirthplaceRegion()).append(comma);
+			result.append(doc.getPassportSerial()).append(comma);
+			result.append(doc.getPassportId()).append(comma);
+			result.append(doc.getRegistrator()).append(comma);
+			result.append(doc.getRegistratorDepartment()).append(comma);
+			result.append(DateParser.unparseDate(doc.getDateOfRegistrating()));
+		} catch (Exception e){
+			throw new AppletProjectServiceException("Invalid document"); 
+		}
+		
+		return result.toString();
 	}
+	
 
 	private static void addRecordsWithInvalidDates(List<String> list,
 			String stringifiedValidDoc) {
