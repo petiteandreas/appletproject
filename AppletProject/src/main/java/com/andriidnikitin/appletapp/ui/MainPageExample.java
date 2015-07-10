@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 
-public class MainPageApplet  extends Applet implements ActionListener {
+public class MainPageExample  extends Applet implements ActionListener {
 	  
 	private static final long serialVersionUID = 1L;
 	

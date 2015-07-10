@@ -8,11 +8,13 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.TextField;
 
+import javax.swing.JPanel;
+
 import com.andriidnikitin.appletapp.ui.infrastructure.DateField;
 import com.andriidnikitin.appletapp.ui.model.PassportDetailsModel;
 import com.andriidnikitin.appletapp.ui.model.PersonalDataModel;
 
-public class InputFormApplet extends Applet {
+public class InputFormPanel extends JPanel {
 	 /**
 	 * 
 	 */
@@ -22,13 +24,20 @@ public class InputFormApplet extends Applet {
 	
 	private final PersonalDataModel person = new PersonalDataModel();
 	
-	TextField Surname, Name, Patronym, City, Area, Region;	
+	private TextField Surname, Name, Patronym, City, Area, Region;	
 
-	TextField passportSerial, passportId, registrator,registratorDepartment;	
+	private TextField passportSerial, passportId, registrator,registratorDepartment;	
 	
-	DateField dateOfRegistrating, birthday;//edit datefield 
+	private DateField dateOfRegistrating, birthday;//edit datefield 
 	
-	private GridLayout  mainLayout; 
+	private GridLayout  mainLayout;
+
+	private UiManager manager; 
+	
+	public InputFormPanel(UiManager manager){
+		this.manager = manager;  
+		init();
+	}
 	      
 	public void init(){
 		

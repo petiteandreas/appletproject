@@ -12,7 +12,6 @@ import com.andriidnikitin.appletapp.bl.Document;
 
 public class DocumentToTableMapper {
 	
-	@SuppressWarnings({ "deprecation" })
 	/**
 	 * Returns vector, prepared to display in table.
 	 * Structure -
@@ -41,17 +40,29 @@ public class DocumentToTableMapper {
 			result.add(element.getSurname());
 			result.add(element.getName());
 			result.add(element.getPatronym());
-			result.add(element.getBirthday().toGMTString());
+			result.add(prepareDate(element.getBirthday()));
 			result.add(element.getBirthplaceCity());
 			result.add(element.getBirthplaceArea());
 			result.add(element.getBirthplaceRegion());
-			result.add(element.getDateOfRegistrating().toGMTString());
+			result.add(prepareDate(element.getDateOfRegistrating()));
 			result.add(element.getRegistrar());
 			result.add(element.getRegistrarDepartment());
 			return result;		
 		} catch (Exception e) {
 			return null;	
 		}
+	}
+	
+	@SuppressWarnings("deprecation")
+	private static String prepareDate(java.util.Date d){
+		StringBuilder result = new StringBuilder();
+		result.append(d.getDate());
+		result.append(".");
+		result.append(d.getMonth());
+		result.append(".");
+		result.append(d.getYear() + 1900);
+		return result.toString();
+		
 	}
 
 	public static JTable getDocumentTable(){
@@ -62,7 +73,6 @@ public class DocumentToTableMapper {
 		  }
 
 		  JTable table = new JTable(model);
-	      table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 	      return table;
 	}
 	
@@ -72,18 +82,18 @@ public class DocumentToTableMapper {
 	
 	private static List<String> getListOfColumns() {
 		List<String> result = new ArrayList<String>();
-		result.add("Passport serial");
-		result.add("Passport ID");
+		result.add("Serial");
+		result.add("ID");
 		result.add("Surname");
 		result.add("Name");
 		result.add("Patronym");
 		result.add("Birthday");
-		result.add("Birthplace city");
-		result.add("Birthplace area");
-		result.add("Birthplace region");
-		result.add("Date of registration");
+		result.add("Birth city");
+		result.add("Birth area");
+		result.add("Birth region");
+		result.add("Register date");
 		result.add("Registrar");
-		result.add("Registrar's department");
+		result.add("Department");
 		return result ;
 	}
 }

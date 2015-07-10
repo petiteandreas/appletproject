@@ -3,6 +3,7 @@ package com.andriidnikitin.appletapp.ui.examples;
 import java.applet.Applet;
 import java.awt.Color;
 
+import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -17,14 +18,15 @@ public class TableExample extends Applet{
 	
 	public void init() {
 		
-		JTable table = DocumentToTableMapper.getDocumentTable();
+		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		
+		JTable table = DocumentToTableMapper.getDocumentTable();		
+		JScrollPane pane = new JScrollPane(table);		
+		add(pane);
 		
 		for (Document doc :TestUtil.generateSampleSetOfValidDocs()) {
 			TableUtil.addDocToTable(table, doc);
 		}
-
-		JScrollPane pane = new JScrollPane(table);
-		add(pane);
 	    setBackground(Color.yellow);	    
 	}   
 }

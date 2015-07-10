@@ -2,6 +2,8 @@ package com.andriidnikitin.appletapp.ui;
 
 import java.util.List;
 
+import javax.swing.JPanel;
+
 import com.andriidnikitin.appletapp.bl.BusinessService;
 import com.andriidnikitin.appletapp.bl.Document;
 import com.andriidnikitin.appletapp.commons.exceptions.AppletProjectServiceException;
@@ -12,31 +14,46 @@ public class UiManager {
 	private final BusinessService service = new 
 			BusinessService();
 
-	private final InputFormApplet inputForm = new InputFormApplet();
+	private final InputFormPanel inputForm = new InputFormPanel(this);
 	
-	private final MainPageApplet mainPage = new MainPageApplet(); 
+	private final MainPagePanel mainPage = new MainPagePanel(this); 
 	
-	public UiManager(){
+	private static final JPanel EMPTY = new JPanel(); 
+	
+	private ContainingApplet container;
+	
+	public UiManager(ContainingApplet launchingApplet) {
 		
-		inputForm.setVisible(false);
+		container = launchingApplet;
 		
-		mainPage.setVisible(false); 
-		
+		container.setContent(mainPage);
 	}
 
 	public static void showErrorScreen(String string) {
-		// TODO Replace with a real code of calling error message 
+				
+
+	}
+	
+	public void openMainPage(){	
+		
+		closeAll();
+
+		container.setContent(mainPage);
+	}
+	
+	public void openInputForm(){
+
+		closeAll();
+
+		container.setContent(inputForm);
+	}
+	
+	private void closeAll() {
+
+		container.setContent(EMPTY);
 		
 	}
-	
-	public void openMainPage(){		
-		;
-	}
 
-	public void openInputForm(){
-		//TODO - Auto-generated method stub		
-	}
-	
 	public List<Document> loadDocuments(String filePath) throws InvalidArgumentUiException{
 		try {
 			return service.loadAllDocumentsFromExternalRepository(filePath);
