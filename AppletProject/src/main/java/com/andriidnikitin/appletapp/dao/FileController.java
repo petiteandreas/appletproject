@@ -2,7 +2,7 @@ package com.andriidnikitin.appletapp.dao;
 
 import com.andriidnikitin.appletapp.commons.AppletProjectPersistenceException;
 
-public interface FileManageable {
+public interface FileController {
 	
 	public void setFileForReading(String path) throws AppletProjectPersistenceException;
 	

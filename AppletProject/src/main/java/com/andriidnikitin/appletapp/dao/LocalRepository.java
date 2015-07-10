@@ -6,7 +6,7 @@ import java.util.List;
 import com.andriidnikitin.appletapp.bl.Document;
 import com.andriidnikitin.appletapp.commons.AppletProjectPersistenceException;
 
-public class LocalRepository implements RepositoryManageable {
+public class LocalRepository implements Repository {
 	
 	private List<Document> elements; 
 

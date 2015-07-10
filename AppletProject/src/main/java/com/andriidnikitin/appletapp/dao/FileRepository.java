@@ -8,7 +8,7 @@ import com.andriidnikitin.appletapp.bl.Document;
 import com.andriidnikitin.appletapp.commons.AppletProjectPersistenceException;
 import com.andriidnikitin.appletapp.dao.infrastructure.CsvDocumentParser;
 
-public class ManagerOfFileRepository implements RepositoryManageable, FileManageable {	
+public class FileRepository implements Repository, FileController {	
 	
 	private File fileForReading;
 

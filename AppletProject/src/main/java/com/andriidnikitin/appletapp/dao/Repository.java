@@ -5,7 +5,7 @@ import java.util.List;
 import com.andriidnikitin.appletapp.bl.Document;
 import com.andriidnikitin.appletapp.commons.AppletProjectPersistenceException;
 
-public interface RepositoryManageable {
+public interface Repository {
 		
 	void persistDocuments(List<Document> docs)
 			throws AppletProjectPersistenceException;

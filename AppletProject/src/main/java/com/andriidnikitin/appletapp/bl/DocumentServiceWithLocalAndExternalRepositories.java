@@ -5,27 +5,27 @@ import java.util.List;
 
 import com.andriidnikitin.appletapp.commons.AppletProjectPersistenceException;
 import com.andriidnikitin.appletapp.commons.AppletProjectServiceException;
-import com.andriidnikitin.appletapp.dao.ManagerOfFileRepository;
-import com.andriidnikitin.appletapp.dao.RepositoryManageable;
+import com.andriidnikitin.appletapp.dao.FileRepository;
+import com.andriidnikitin.appletapp.dao.Repository;
 import com.andriidnikitin.appletapp.dao.LocalRepository;
 
 import static com.andriidnikitin.appletapp.bl.DocumentValidator.*;
 
 public class DocumentServiceWithLocalAndExternalRepositories implements DocumentService {
 
-	private RepositoryManageable externalRepoManager;//TODO - inject with spring
+	private Repository externalRepoManager;//TODO - inject with spring
 	
-	private RepositoryManageable localRepoManager;	
+	private Repository localRepoManager;	
 		
 	public DocumentServiceWithLocalAndExternalRepositories() {
 		super();
-		externalRepoManager = new ManagerOfFileRepository();
+		externalRepoManager = new FileRepository();
 		localRepoManager = new LocalRepository();
 	}		
 	
 	@Override
 	public DocumentServiceWithLocalAndExternalRepositories 
-			setExternalRepo(RepositoryManageable repo){
+			setExternalRepo(Repository repo){
 		externalRepoManager = repo;
 		return this;
 	}
@@ -62,7 +62,7 @@ public class DocumentServiceWithLocalAndExternalRepositories implements Document
 		return persistToStorage(list, externalRepoManager);		
 	}
 
-	private List<Document> persistToStorage(List<Document> list, RepositoryManageable repo)
+	private List<Document> persistToStorage(List<Document> list, Repository repo)
 			throws AppletProjectServiceException {
 		List<Document> fails = new ArrayList<Document>();
 		List<Document> validDocs = new ArrayList<Document>();

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.andriidnikitin.appletapp.commons.AppletProjectPersistenceException;
 import com.andriidnikitin.appletapp.commons.AppletProjectServiceException;
-import com.andriidnikitin.appletapp.dao.ManagerOfFileRepository;
+import com.andriidnikitin.appletapp.dao.FileRepository;
 
 
 /**
@@ -16,11 +16,11 @@ public class BusinessService {
 	
 	private DocumentService service;
 	
-	private ManagerOfFileRepository repo; 
+	private FileRepository repo; 
 	
 	public BusinessService(){
 		
-		ManagerOfFileRepository repo = new ManagerOfFileRepository();
+		FileRepository repo = new FileRepository();
 		
 		DocumentService service = new DocumentServiceWithLocalAndExternalRepositories();
 		
