@@ -1,4 +1,4 @@
-package com.andriidnikitin.appletapp.commons;
+package com.andriidnikitin.appletapp.commons.exceptions;
 
 import java.text.ParseException;
 

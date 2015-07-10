@@ -3,8 +3,8 @@ package com.andriidnikitin.appletapp.bl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.andriidnikitin.appletapp.commons.AppletProjectPersistenceException;
-import com.andriidnikitin.appletapp.commons.AppletProjectServiceException;
+import com.andriidnikitin.appletapp.commons.exceptions.AppletProjectPersistenceException;
+import com.andriidnikitin.appletapp.commons.exceptions.AppletProjectServiceException;
 import com.andriidnikitin.appletapp.dao.FileRepository;
 import com.andriidnikitin.appletapp.dao.Repository;
 import com.andriidnikitin.appletapp.dao.LocalRepository;

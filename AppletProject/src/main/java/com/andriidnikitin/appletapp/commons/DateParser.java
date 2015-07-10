@@ -1,8 +1,8 @@
-package com.andriidnikitin.appletapp.ui.infrastructure;
+package com.andriidnikitin.appletapp.commons;
 
 import java.util.Date;
 
-import com.andriidnikitin.appletapp.commons.InvalidArgumentUiException;
+import com.andriidnikitin.appletapp.commons.exceptions.InvalidArgumentUiException;
 
 public class DateParser {
 

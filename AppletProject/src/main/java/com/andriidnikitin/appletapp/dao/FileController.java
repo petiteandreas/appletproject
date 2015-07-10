@@ -1,6 +1,6 @@
 package com.andriidnikitin.appletapp.dao;
 
-import com.andriidnikitin.appletapp.commons.AppletProjectPersistenceException;
+import com.andriidnikitin.appletapp.commons.exceptions.AppletProjectPersistenceException;
 
 public interface FileController {
 	

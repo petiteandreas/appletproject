@@ -2,7 +2,8 @@ package com.andriidnikitin.appletapp.bl;
 
 import java.util.Date;
 
-import com.andriidnikitin.appletapp.commons.AppletProjectServiceException;
+import com.andriidnikitin.appletapp.commons.StringParser;
+import com.andriidnikitin.appletapp.commons.exceptions.AppletProjectServiceException;
 
 public class DocumentValidator {
 		
@@ -89,7 +90,7 @@ public class DocumentValidator {
 				if (str.length()<1){
 					return false;
 				}
-				if (!isValidNaming(str)){
+				if (!StringParser.isValidName(str)){
 					return false;
 				}
 			}
@@ -100,13 +101,12 @@ public class DocumentValidator {
 	}
 
 	private static boolean validPassportCode(Document doc) {
-		String numericRegex = "^[0-9]+$"; 
-		String letterRegex = "^[a-zA-Zà-ÿÀ-ß]+$";
-		
-		if (!doc.getPassportId().matches(numericRegex)){
+				
+		if (!StringParser.containsOnlyNumbers(doc.getPassportId())){
 			return false;
 		}
-		if (!doc.getPassportSerial().matches(letterRegex)){
+		
+		if (!StringParser.containsOnlyLetters(doc.getPassportSerial())){
 			return false;
 		}
 		
@@ -148,7 +148,7 @@ public class DocumentValidator {
 			return false;
 		}
 		
-		if ((doc.getPatronym() != null) && (!isValidNaming(doc.getPatronym()))){
+		if ((doc.getPatronym() != null) && (!StringParser.isValidName(doc.getPatronym()))){
 			return false;
 		}
 		
@@ -168,19 +168,5 @@ public class DocumentValidator {
 		return true;
 		
 	}
-
-	private static boolean isValidNaming(String string) {
-		if (string == null){
-			return false;
-		}
-		char firstLetter = string.charAt(0);
-		if (!Character.isUpperCase(firstLetter))
-				return false;
-		for (int i = 1; i < string.length(); i++){
-			char c =  string.charAt(i);
-			if (!Character.isLowerCase(c) && c!='-')
-				return false;
-		}
-		return (!string.contains("--"));
-	}
+	
 }

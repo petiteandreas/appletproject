@@ -10,7 +10,7 @@ import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy;
 import au.com.bytecode.opencsv.bean.CsvToBean;
 
 import com.andriidnikitin.appletapp.bl.Document;
-import com.andriidnikitin.appletapp.commons.AppletProjectPersistenceException;
+import com.andriidnikitin.appletapp.commons.exceptions.AppletProjectPersistenceException;
 
 public class CsvDocumentParser {	
 	

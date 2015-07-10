@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.andriidnikitin.appletapp.commons.AppletProjectUiIncorrectDateFormatException;
+import com.andriidnikitin.appletapp.commons.exceptions.AppletProjectUiIncorrectDateFormatException;
 
 public class DateField extends TextField {
 

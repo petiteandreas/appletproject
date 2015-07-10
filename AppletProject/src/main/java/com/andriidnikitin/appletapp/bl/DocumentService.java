@@ -2,7 +2,7 @@ package com.andriidnikitin.appletapp.bl;
 
 import java.util.List;
 
-import com.andriidnikitin.appletapp.commons.AppletProjectServiceException;
+import com.andriidnikitin.appletapp.commons.exceptions.AppletProjectServiceException;
 import com.andriidnikitin.appletapp.dao.Repository;
 
 public interface DocumentService {

@@ -8,7 +8,7 @@ import org.junit.Test;
 import com.andriidnikitin.appletapp.bl.Document;
 import com.andriidnikitin.appletapp.bl.DocumentService;
 import com.andriidnikitin.appletapp.bl.DocumentServiceWithLocalAndExternalRepositories;
-import com.andriidnikitin.appletapp.commons.AppletProjectServiceException;
+import com.andriidnikitin.appletapp.commons.exceptions.AppletProjectServiceException;
 import com.andriidnikitin.appletapp.dao.LocalRepository;
 
 import static  com.andriidnikitin.appletapp.commons.TestUtil.*;

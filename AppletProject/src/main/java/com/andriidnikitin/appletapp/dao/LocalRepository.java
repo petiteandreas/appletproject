@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.andriidnikitin.appletapp.bl.Document;
-import com.andriidnikitin.appletapp.commons.AppletProjectPersistenceException;
+import com.andriidnikitin.appletapp.commons.exceptions.AppletProjectPersistenceException;
 
 public class LocalRepository implements Repository {
 	

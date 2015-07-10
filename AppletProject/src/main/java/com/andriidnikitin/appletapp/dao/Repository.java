@@ -3,7 +3,7 @@ package com.andriidnikitin.appletapp.dao;
 import java.util.List;
 
 import com.andriidnikitin.appletapp.bl.Document;
-import com.andriidnikitin.appletapp.commons.AppletProjectPersistenceException;
+import com.andriidnikitin.appletapp.commons.exceptions.AppletProjectPersistenceException;
 
 public interface Repository {
 		

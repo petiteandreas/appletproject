@@ -1,4 +1,4 @@
-package com.andriidnikitin.appletapp.commons;
+package com.andriidnikitin.appletapp.commons.exceptions;
 
 public class AppletProjectPersistenceException  extends
 		AppletProjectException {

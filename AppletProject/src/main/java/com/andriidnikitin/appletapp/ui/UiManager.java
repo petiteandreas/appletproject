@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.andriidnikitin.appletapp.bl.BusinessService;
 import com.andriidnikitin.appletapp.bl.Document;
-import com.andriidnikitin.appletapp.commons.AppletProjectServiceException;
-import com.andriidnikitin.appletapp.commons.InvalidArgumentUiException;
+import com.andriidnikitin.appletapp.commons.exceptions.AppletProjectServiceException;
+import com.andriidnikitin.appletapp.commons.exceptions.InvalidArgumentUiException;
 
 public class UiManager {
 	

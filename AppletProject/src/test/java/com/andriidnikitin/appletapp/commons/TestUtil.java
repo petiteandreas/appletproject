@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.andriidnikitin.appletapp.bl.Document;
-import com.andriidnikitin.appletapp.ui.infrastructure.DateParser;
+import com.andriidnikitin.appletapp.commons.exceptions.AppletProjectServiceException;
 public class TestUtil {
 	
 	private static final String UNPARSEABLE_TO_DATE = "rvt5bb56vbu";

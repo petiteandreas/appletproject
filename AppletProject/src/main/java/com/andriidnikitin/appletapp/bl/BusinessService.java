@@ -2,9 +2,8 @@ package com.andriidnikitin.appletapp.bl;
 
 import java.util.List;
 
-import com.andriidnikitin.appletapp.commons.AppletProjectPersistenceException;
-import com.andriidnikitin.appletapp.commons.AppletProjectServiceException;
-import com.andriidnikitin.appletapp.dao.FileRepository;
+import com.andriidnikitin.appletapp.commons.exceptions.AppletProjectServiceException;
+import com.andriidnikitin.appletapp.dao.Repository;
 
 
 /**
@@ -16,15 +15,12 @@ public class BusinessService {
 	
 	private DocumentService service;
 	
-	private FileRepository repo; 
+	private RepositoryHolder holder; 
+	//TODO - replace with Spring injection
 	
 	public BusinessService(){
 		
-		FileRepository repo = new FileRepository();
-		
-		DocumentService service = new DocumentServiceWithLocalAndExternalRepositories();
-		
-		service.setExternalRepo(repo);
+		service = new DocumentServiceWithLocalAndExternalRepositories();
 		 
 	}
 	
@@ -45,21 +41,15 @@ public class BusinessService {
 
 	public List<Document> loadAllDocumentsFromExternalRepository(String filepath)
 			throws AppletProjectServiceException {
-		try {
-			repo.setFileForReading(filepath);
-		} catch (AppletProjectPersistenceException e) {
-			throw new AppletProjectServiceException(e);
-		}
+		Repository newRepository = holder.getExternalRepoForReading(filepath);
+		service.setExternalRepo(newRepository);
 		return service.loadAllDocumentsFromExternalRepository();
 	}
 
 	public List<Document> persistDocuments(List<Document> list, String filepath)
 			throws AppletProjectServiceException {
-		try {
-			repo.setFileForWriting(filepath);
-		} catch (AppletProjectPersistenceException e) {
-			throw new AppletProjectServiceException(e);
-		}
+		Repository newRepository = holder.getExternalRepoForWriting(filepath);
+		service.setExternalRepo(newRepository);
 		return service.persistDocuments(list);
 	}
 

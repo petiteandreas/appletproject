@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.andriidnikitin.appletapp.bl.Document;
-import com.andriidnikitin.appletapp.commons.AppletProjectPersistenceException;
+import com.andriidnikitin.appletapp.commons.exceptions.AppletProjectPersistenceException;
 import com.andriidnikitin.appletapp.dao.infrastructure.CsvDocumentParser;
 
 public class FileRepository implements Repository, FileController {	
