@@ -26,8 +26,8 @@ public class TestUtil {
 		sampleValidDoc.setDateOfRegistrating(new Date(110,15,11));
 		sampleValidDoc.setPassportSerial("SA");
 		sampleValidDoc.setPassportId("123456");
-		sampleValidDoc.setRegistrator("Regional Registrator");
-		sampleValidDoc.setRegistratorDepartment("Kyiv-Sviatoshyn");
+		sampleValidDoc.setRegistrar("Regional Registrator");
+		sampleValidDoc.setRegistrarDepartment("Kyiv-Sviatoshyn");
 		
 		return sampleValidDoc;
 	}
@@ -142,11 +142,11 @@ public static List<Document> generateSampleSetOfCorruptedDocs() {
 		list.add(invalidDoc);
 		
 		invalidDoc = generateSampleValidDoc();
-		invalidDoc.setRegistrator(null);
+		invalidDoc.setRegistrar(null);
 		list.add(invalidDoc);
 		
 		invalidDoc = generateSampleValidDoc();
-		invalidDoc.setRegistratorDepartment(null);
+		invalidDoc.setRegistrarDepartment(null);
 		list.add(invalidDoc);
 		
 		invalidDoc = generateSampleValidDoc();
@@ -199,8 +199,8 @@ public static List<Document> generateSampleSetOfCorruptedDocs() {
 			result.append(doc.getBirthplaceRegion()).append(comma);
 			result.append(doc.getPassportSerial()).append(comma);
 			result.append(doc.getPassportId()).append(comma);
-			result.append(doc.getRegistrator()).append(comma);
-			result.append(doc.getRegistratorDepartment()).append(comma);
+			result.append(doc.getRegistrar()).append(comma);
+			result.append(doc.getRegistrarDepartment()).append(comma);
 			result.append(DateParser.unparseDate(doc.getDateOfRegistrating()));
 		} catch (Exception e){
 			throw new AppletProjectServiceException("Invalid document"); 

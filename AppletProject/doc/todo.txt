@@ -1,2 +1,3 @@
 1. сделать групповой элемент с датой и повесить на него валидацию (смотреть в книге Файна)
 2. use YODATIME <?> for dates
+3. test DateField, DocumentToTableMapper, TableUtil

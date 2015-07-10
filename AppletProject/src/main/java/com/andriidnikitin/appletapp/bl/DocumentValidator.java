@@ -63,19 +63,19 @@ public class DocumentValidator {
 				&& (doc.getPassportId() != null) 
 				&& (doc.getPassportSerial() != null) 
 				&& (doc.getPatronym() != null) 
-				&& (doc.getRegistrator() != null) 
-				&& (doc.getRegistratorDepartment() != null) 
+				&& (doc.getRegistrar() != null) 
+				&& (doc.getRegistrarDepartment() != null) 
 				&& (doc.getSurname() != null) 
 				);
 	}
 
 	private static boolean validRegistrator(Document doc) {
 		
-		if (!isValidNaming(doc.getRegistrator().split("[ -]"))){
+		if (!isValidNaming(doc.getRegistrar().split("[ -]"))){
 			return false;
 		}
 		
-		if (!isValidNaming(doc.getRegistratorDepartment().split("[ -]"))){
+		if (!isValidNaming(doc.getRegistrarDepartment().split("[ -]"))){
 			return false;
 		}
 		

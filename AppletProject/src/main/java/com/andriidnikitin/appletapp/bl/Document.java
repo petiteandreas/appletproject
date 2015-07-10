@@ -24,9 +24,25 @@ public class Document {
 	
 	private Date dateOfRegistrating;
 	
-	private String registrator;
+	public String getRegistrar() {
+		return registrar;
+	}
+
+	public void setRegistrar(String registrar) {
+		this.registrar = registrar;
+	}
+
+	public String getRegistrarDepartment() {
+		return registrarDepartment;
+	}
+
+	public void setRegistrarDepartment(String registrarDepartment) {
+		this.registrarDepartment = registrarDepartment;
+	}
+
+	private String registrar;
 	
-	private String registratorDepartment;
+	private String registrarDepartment;
 
 
 	public String getSurname() {
@@ -83,23 +99,7 @@ public class Document {
 	
 	public void setDateOfRegistrating(Date date) {
 		this.dateOfRegistrating = date;
-	}
-	
-	public String getRegistrator() {
-		return registrator;
-	}
-	
-	public void setRegistrator(String registrator) {
-		this.registrator = registrator;
-	}
-	
-	public String getRegistratorDepartment() {
-		return registratorDepartment;
-	}
-	
-	public void setRegistratorDepartment(String registratorDepartment) {
-		this.registratorDepartment = registratorDepartment;
-	}
+	}	
 	
 	public String getBirthplaceCity() {
 		return birthplaceCity;
